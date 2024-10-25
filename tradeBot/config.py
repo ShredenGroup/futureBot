@@ -1,14 +1,14 @@
 import configparser
 import os
 import sys
-CFG_FL='./futureBot/user.cfg'
+CFG_FL='./user.cfg'
 USER_CFG_SECTION="sub_account"
 
 class Config:
     def __init__(self):
         print("welcome to config module")
         config=configparser.ConfigParser()
-        if os.path.exists("./futureBot/user.cfg"):
+        if os.path.exists("./user.cfg"):
             
             config.read(CFG_FL)
             if USER_CFG_SECTION in config:

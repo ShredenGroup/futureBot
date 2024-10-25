@@ -55,7 +55,10 @@ class Account:
             print("You dont have any token balance greater than zero")
         else:
          print("Your balance:",account_balance)
-    
-    def get_current_price(self):
+
+class mockAccount:
+    def __init__(self,balance:float):
+        self.balance=balance
+
      
 

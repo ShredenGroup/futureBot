@@ -8,7 +8,7 @@ class DB:
     def __init__(self):
         current_dictionary=os.path.abspath(os.getcwd())
         print(current_dictionary)
-        file_path=os.path.join(current_dictionary,"futureBot","btc_data")
+        file_path=os.path.join(current_dictionary,"tradeBot","btc_data")
         self.files_path=glob.glob(os.path.join(file_path,"*.csv"))
     def db_init(self):
         dfs=[]
