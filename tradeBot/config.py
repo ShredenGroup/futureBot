@@ -25,6 +25,10 @@ class Config:
             sys.exit(1)
         with open (os.path.join(current_path,"Private_key")) as f:
           private_key=f.read()
+        current_dictionary=os.path.abspath(os.getcwd()) 
+        data_dictionary=os.path.join(current_dictionary,"tradeBot","format_data")
+        self.WLD_PATH=os.path.join(data_dictionary,"WLD_format.csv")
+        self.BTC_PATH=os.path.join(data_dictionary,"BTC_format.csv")
         self.API_KEY=config.get(USER_CFG_SECTION,"API_KEY")
         self.SECRET_KEY=private_key
         self.WLD_AMOUNT=3

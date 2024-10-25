@@ -1,5 +1,6 @@
 from binance.um_futures import UMFutures
 from .config import Config
+from typing import Dict,Set
 config=Config()
 class Account:
     def __init__(self,config:Config):
@@ -45,20 +46,21 @@ class Account:
         response=self.client.new_order(**close_param)
         print(response)
 
-    def get_balance(self):
+    def get_balance(self)->Dict[str,str]:
         balance=self.client.balance()
         account_balance={}
         for item in balance:
             if float(item.get('balance'))!=0:
                 account_balance[item.get('asset')]=item.get('balance')
         if account_balance=={}:
-            print("You dont have any token balance greater than zero")
+            return {"asset":"No token in your balance"}
         else:
-         print("Your balance:",account_balance)
+         return account_balance 
 
-class mockAccount:
+class MockAccount:
     def __init__(self,balance:float):
         self.balance=balance
+        self.orders={}
 
      
 

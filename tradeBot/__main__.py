@@ -7,5 +7,7 @@ import os
 def main():
     config=Config()
     account=Account(config)
-    print(account.get_balance())
+    db=DB()
+    db.export_to_csv(db.add_day_changes(db.read_csv(config.BTC_PATH)),config.BTC_PATH)
+
 main()
