@@ -6,7 +6,6 @@ import numpy as np
 import os 
 def main():
     config=Config()
-    db=DB()
-    combined_db=db.db_init()
-    print(combined_db.head())
+    account=Account(config)
+    print(account.get_balance())
 main()

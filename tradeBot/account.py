@@ -3,7 +3,7 @@ from .config import Config
 config=Config()
 class Account:
     def __init__(self,config:Config):
-        self.client=UMFutures(key=config.HP_API_KEY,private_key=config.HP_SECRET_KEY)
+        self.client=UMFutures(key=config.API_KEY,private_key=config.SECRET_KEY)
     def open_order(self,config:Config):
         params = {
             'symbol': 'WLDUSDT',

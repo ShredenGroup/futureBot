@@ -8,6 +8,7 @@ class Config:
     def __init__(self):
         print("welcome to config module")
         config=configparser.ConfigParser()
+        current_path=os.path.abspath(os.getcwd())
         if os.path.exists("./user.cfg"):
             
             config.read(CFG_FL)
@@ -22,13 +23,10 @@ class Config:
             print("No config file detected, exit")
             print(os.path.abspath("."))
             sys.exit(1)
-        with open ("/home/litterpigger/.keypair/Private_key") as f:
+        with open (os.path.join(current_path,"Private_key")) as f:
           private_key=f.read()
-        self.HP_SECRET_KEY=private_key
-
-        self.PC_API_KEY=config.get(USER_CFG_SECTION,"PC_API_KEY")
-        self.PC_SECRET_KEY=config.get(USER_CFG_SECTION,"PC_SECRET_KEY")
-        self.HP_API_KEY=config.get(USER_CFG_SECTION,"HP_API_KEY")
+        self.API_KEY=config.get(USER_CFG_SECTION,"API_KEY")
+        self.SECRET_KEY=private_key
         self.WLD_AMOUNT=3
         self.TRADING_PAIR=["WLDUSDT"]
 
