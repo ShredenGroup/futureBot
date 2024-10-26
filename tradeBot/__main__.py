@@ -1,22 +1,33 @@
 from .config import Config
-from .account import Account     
+from .account import Account,MockAccount     
 from .db import DB
 import pandas as pd
 import numpy as np
 import os 
 from .strategy import Strategy
+from .backtest import BackTest
 def main():
     config=Config()
     account=Account(config)
     db=DB()
     WLD_df=DB.read_csv(config.WLD_PATH)
     BTC_df=DB.read_csv(config.BTC_PATH)
+    merged_data, signal_details = Strategy.BTC_WLD(WLD_df, BTC_df)
+    account = MockAccount(initial_balance=1000.0, leverage=20.0)
+    backtest = BackTest(account)
+    print(merged_data)
 
-    result,details=Strategy.BTC_WLD(WLD_df,BTC_df)
-    for detail in details:
-     print(f"\n信号日期: {detail['signal_date']}")
-     print(f"三天连续优势期结束日期: {detail['three_day_streak_end_date']}")
-     print(f"间隔天数: {detail['days_since_streak']}")
-     print(f"WLD最近两天表现: {detail['wld_last_two_days']}")
-     print(f"BTC最近两天表现: {detail['btc_last_two_days']}")
+    # 运行回测
+    backtest.run(WLD_df, merged_data)
+
+    # 生成报告
+    report = backtest.generate_report()
+    print("\n=== 回测报告 ===")
+    for key, value in report.items():
+        if key != "Daily Returns":
+            print(f"{key}: {value}")
+   
+
+
+  
 main()

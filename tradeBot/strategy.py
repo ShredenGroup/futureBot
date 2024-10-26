@@ -47,7 +47,7 @@ class Strategy:
             # 检查从三天连续优势期结束到前天这段时间内是否有连续两天WLD表现差于BTC
             for i in range(three_day_streak_end + 1, current_idx - 2):
                 if (not data['wld_outperforms'].iloc[i] and 
-                    not data['wld_outperforms'].iloc[i+1]):
+                    not data['wld_outperforms'].iloc[i+1])   :
                     return False
             
             return True
