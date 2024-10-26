@@ -21,10 +21,12 @@ class DB:
         combined_db['close_time']=pd.to_datetime(combined_db['close_time'],unit='ms')
         
         return combined_db
-    
-    def read_csv(self,path):
+    @staticmethod 
+    def read_csv(path):
         return pd.read_csv(path)
-    def caculate_ema(self,data,span):
+    
+    @staticmethod
+    def caculate_ema(data,span):
        return data['close'].ewm(span=span,adjust=False).mean() 
     
     def add_MACD(self,df):
