@@ -1,3 +1,4 @@
 binance-futures-connector
 pandas
 numpy
+matploylib

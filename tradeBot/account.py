@@ -110,17 +110,17 @@ class MockAccount:
         self.daily_balance = {}
         self.max_drawdown = 0.0
         self.equity_peak = initial_balance
+        self.fixed_position_value=20
 
-    def calculate_position_size(self, price: float, stop_loss: float) -> float:
-        risk_amount = self.balance * 0.02  # 2%风险
-        price_diff = abs(price - stop_loss)
-        position_size = (risk_amount * self.leverage) / price_diff
+    def calculate_position_size(self, price: float) -> float:
+     
+        position_size = (self.fixed_position_value * self.leverage) / price
         return position_size
 
     def open_position(self, symbol: str, side: OrderSide, price: float, 
                      stop_loss: float, take_profit: float, timestamp: datetime) -> Order:
         # 计算仓位大小
-        size = self.calculate_position_size(price, stop_loss)
+        size = self.calculate_position_size(price)
         
         # 计算手续费
         fee = price * size * self.fee_rate

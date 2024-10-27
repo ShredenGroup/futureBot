@@ -29,6 +29,7 @@ class Config:
         data_dictionary=os.path.join(current_dictionary,"tradeBot","format_data")
         self.WLD_PATH=os.path.join(data_dictionary,"WLD_format.csv")
         self.BTC_PATH=os.path.join(data_dictionary,"BTC_format.csv")
+        self.ARB_PATH=os.path.join(data_dictionary,"ARB_format.csv")
         self.API_KEY=config.get(USER_CFG_SECTION,"API_KEY")
         self.SECRET_KEY=private_key
         self.WLD_AMOUNT=3
