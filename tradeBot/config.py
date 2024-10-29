@@ -34,6 +34,7 @@ class Config:
         self.SECRET_KEY=private_key
         self.WLD_AMOUNT=3
         self.TRADING_PAIR=["WLDUSDT"]
+        self.OP_PATH=os.path.join(data_dictionary,'OP_format.csv')
 
         
 

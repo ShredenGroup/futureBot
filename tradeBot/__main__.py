@@ -5,32 +5,29 @@ import pandas as pd
 import numpy as np
 import os 
 from .strategy import Strategy
-from .backtest import BackTest,BacktestVisualizer
+from .backtest import BackTest,TimeFrame,BacktestVisualizer
 def main():
     config=Config()
     account=Account(config)
     db=DB()
-    WLD_df=DB.read_csv(config.WLD_PATH)
+    DB.export_to_csv(DB.add_MACD(DB.read_csv(config.WLD_PATH)),"/home/litterpigger/myprojects/futureBot/tradeBot/format_data/WLD.csv")
     BTC_df=DB.read_csv(config.BTC_PATH)
     ARB_df=DB.read_csv(config.ARB_PATH)
-    merged_data, signal_details = Strategy.BTC_WLD_hour(WLD_df, BTC_df)
-
+    OP_df=DB.read_csv(config.OP_PATH)
+    merged_data, signal_details = Strategy.BTC_WLD_hour(ARB_df, BTC_df)
+    print(merged_data.head()) 
+    """
     account = MockAccount(initial_balance=1000.0, leverage=20.0)
-    backtest = BackTest(account)
-    print(merged_data)
-
+    backtest = BackTest(account,risk_free_rate=0.02)
+    backtest.run(ARB_df,merged_data,TimeFrame.HOUR)
+    print(backtest)
     # 运行回测
-    backtest.run_hour(WLD_df, merged_data)
-
-    # 生成报告
-    report = backtest.generate_report_hour()
-    print("\n=== 回测报告 ===")
-    for key, value in report.items():
-        if key != "Daily Returns":
-            print(f"{key}: {value}")
-    visualizer=BacktestVisualizer(account)
-    visualizer.generate_visual_report()
-
+    BV=BacktestVisualizer(account,timeframe=TimeFrame.HOUR)
+    BV.generate_report() 
+    """
+    
+   
+    
 
   
 main()

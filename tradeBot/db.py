@@ -28,16 +28,15 @@ class DB:
     @staticmethod
     def caculate_ema(data,span):
        return data['close'].ewm(span=span,adjust=False).mean() 
-    
-    def add_MACD(self,df):
-        ema12=self.caculate_ema(df,12)
-        ema26=self.caculate_ema(df,26)
+    @staticmethod 
+    def add_MACD(df):
+        ema12=DB.caculate_ema(df,12)
+        ema26=DB.caculate_ema(df,26)
         df['MACD']=ema12-ema26
         df['MACD'].iloc[:21] = np.nan
         df['Signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
         df['Signal'].iloc[:29]=np.nan
         df['MACD_Histogram'] = df['MACD'] - df['Signal']
-        df=df.drop(columns=['ignore','taker_buy_quote_volume','count','taker_buy_volume'],errors='ignore')
 
         return df
     @staticmethod
@@ -100,6 +99,8 @@ class DB:
         combined_db=pd.concat(dfs,ignore_index=True)
         combined_db['open_time']=pd.to_datetime(combined_db['open_time'],unit='ms')
         combined_db['close_time']=pd.to_datetime(combined_db['close_time'],unit='ms')
+        combined_db=DB.add_MACD(DB.add_day_changes(DB.add_day_price(combined_db)))
+        DB.export_to_csv(combined_db,'/home/litterpigger/myprojects/futureBot/tradeBot/format_data/OP_format.csv') 
 
 
     

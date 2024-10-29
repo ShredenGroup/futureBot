@@ -110,7 +110,7 @@ class MockAccount:
         self.daily_balance = {}
         self.max_drawdown = 0.0
         self.equity_peak = initial_balance
-        self.fixed_position_value=20
+        self.fixed_position_value=10
 
     def calculate_position_size(self, price: float) -> float:
      
